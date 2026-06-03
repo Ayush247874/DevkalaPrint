@@ -1,6 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-// import { Globe, Instagram, Youtube } from "lucide-react";
+import facebookIcon from "../assets/icons/facebook.png";
+import instagramIcon from "../assets/icons/instagram.png";
+import youtubeIcon from "../assets/icons/youtube.png";
 
 const quickLinks = [
   { label: "Home", href: "#" },
@@ -147,16 +149,28 @@ export default function Footer() {
               marginTop: "16px",
             }}
           >
-            <SocialBtn href="https://www.facebook.com/share/17tV2vj9id/">
-              🌐
+            <SocialBtn href="https://www.facebook.com/share/1M7EygssZS/">
+              <img
+                src={facebookIcon}
+                alt="Facebook"
+                style={{ width: "24px", height: "24px" }}
+              />
             </SocialBtn>
 
-            <SocialBtn href="https://www.instagram.com/ravivlogs420">
-              📷
+            <SocialBtn href="https://www.instagram.com/hellopremok?igsh=dXFveXFoN2VmeWVp">
+              <img
+                src={instagramIcon}
+                alt="Instagram"
+                style={{ width: "24px", height: "24px" }}
+              />
             </SocialBtn>
 
-            <SocialBtn href="https://youtube.com/@ravivlogs420">
-              ▶
+            <SocialBtn href="#">
+              <img
+                src={youtubeIcon}
+                alt="YouTube"
+                style={{ width: "24px", height: "24px" }}
+              />
             </SocialBtn>
           </div>
         </div>

@@ -1,524 +1,518 @@
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Globe,
-  Code,
-  Smartphone,
-  Monitor,
-} from "lucide-react";
-
-/* IMPORT YOUR IMAGE */
 import developerImg from "../assets/developer/developer.jpeg";
+import facebookIcon from "../assets/icons/facebook.png";
+import instagramIcon from "../assets/icons/instagram.png";
+import youtubeIcon from "../assets/icons/youtube.png";
 
 export default function DeveloperSection() {
-
   const services = [
-    "Business Website",
-    "Hotel Website",
-    "Restaurant Website",
-    "E-Commerce Website",
-    "Portfolio Website",
-    "School / College Website",
-    "Custom Admin Panel",
-    "Android App Development",
-    "Printing Business Website",
-    "Online Service Portal",
+    {
+      title: "Business Website",
+      desc: "Professional business websites",
+      icon: "🌐",
+    },
+    {
+      title: "Hotel Website",
+      desc: "Modern hotel & resort websites",
+      icon: "🏨",
+    },
+    {
+      title: "Restaurant Website",
+      desc: "Food & restaurant websites",
+      icon: "🍴",
+    },
+    {
+      title: "E-Commerce Website",
+      desc: "Powerful e-commerce solutions",
+      icon: "🛒",
+    },
+    {
+      title: "Portfolio Website",
+      desc: "Personal portfolio websites",
+      icon: "👤",
+    },
+    {
+      title: "School / College Website",
+      desc: "Education & institution websites",
+      icon: "🎓",
+    },
+    {
+      title: "Custom Admin Panel",
+      desc: "Custom admin dashboards",
+      icon: "🛡️",
+    },
+    {
+      title: "Android App Development",
+      desc: "Android apps for business",
+      icon: "📱",
+    },
+    {
+      title: "Printing Business Website",
+      desc: "Printing business websites",
+      icon: "🖨️",
+    },
+    {
+      title: "Online Service Portal",
+      desc: "Booking & management portals",
+      icon: "🖥️",
+    },
   ];
 
- const socialLinks = [
-  {
-    icon: "📸",
-    link: "https://instagram.com/",
-    color: "#E1306C",
-    label: "Instagram",
-  },
-
-  {
-    icon: "📘",
-    link: "https://facebook.com/",
-    color: "#1877F2",
-    label: "Facebook",
-  },
-
-  {
-    icon: "▶️",
-    link: "https://youtube.com/",
-    color: "#FF0000",
-    label: "YouTube",
-  },
-];
-
   return (
+    <>
+      <style>{`
+      
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+      }
 
-    <section
-      style={{
-        width: "100%",
-        minHeight: "100vh",
-
+      .developer-section{
+        min-height:100vh;
         background:
-          "linear-gradient(135deg,#020617,#0f172a,#111827)",
+        radial-gradient(circle at bottom,#ff2d5520,transparent 40%),
+        linear-gradient(135deg,#020617,#071028,#020617);
+        padding:80px 5%;
+        color:#fff;
+      }
 
-        padding: "100px 5%",
+      .developer-container{
+        max-width:1400px;
+        margin:auto;
+        display:grid;
+        grid-template-columns:380px 1fr;
+        gap:60px;
+      }
 
-        overflow: "hidden",
+      /* LEFT CARD */
 
-        color: "#fff",
-      }}
-    >
+      .developer-card{
+        background:rgba(255,255,255,.03);
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:30px;
+        padding:40px 30px;
+        backdrop-filter:blur(20px);
+      }
 
-      <div
-        style={{
-          maxWidth: "1400px",
-          margin: "auto",
+      .image-wrapper{
+        display:flex;
+        justify-content:center;
+        margin-bottom:25px;
+      }
 
-          display: "grid",
+      .developer-image{
+        width:240px;
+        height:240px;
+        border-radius:50%;
+        object-fit:cover;
+        border:5px solid #ff4d4d;
+        box-shadow:
+        0 0 40px rgba(255,77,77,.5);
+      }
 
-          gridTemplateColumns:
-            window.innerWidth < 950
-              ? "1fr"
-              : "1fr 1.1fr",
+      .developer-card h2{
+        text-align:center;
+        font-size:35px;
+        font-weight:700;
+      }
 
-          gap: "70px",
+      .developer-card h2 span{
+        color:#ff4d4d;
+      }
 
-          alignItems: "center",
-        }}
-      >
+      .role{
+        display:block;
+        width:max-content;
+        margin:15px auto 30px;
+        padding:10px 24px;
+        background:#ff4d4d20;
+        color:#ff4d4d;
+        border-radius:30px;
+        font-weight:600;
+      }
 
-        {/* LEFT IMAGE */}
+      .about-card{
+        text-align:center;
+        color:#cbd5e1;
+        line-height:1.8;
+        margin-bottom:30px;
+      }
 
-        <div
-          style={{
-            position: "relative",
+      .personal-title{
+        color:#ff4d4d;
+        margin-bottom:20px;
+        font-weight:700;
+      }
 
-            display: "flex",
+      .contact-item{
+        display:flex;
+        gap:12px;
+        margin-bottom:18px;
+        color:#e2e8f0;
+      }
 
-            justifyContent: "center",
-          }}
-        >
+      .social-icons{
+        display:flex;
+        justify-content:center;
+        gap:18px;
+        margin-top:30px;
+      }
 
-          <div
-            style={{
-              position: "absolute",
+      .social-icons a{
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        border:1px solid rgba(255,255,255,.15);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        transition:.3s;
+      }
 
-              width: "350px",
+      .social-icons a:hover{
+        transform:translateY(-5px);
+        box-shadow:0 0 20px rgba(255,77,77,.4);
+      }
 
-              height: "350px",
+      .social-icons img{
+        width:28px;
+        height:28px;
+      }
 
-              borderRadius: "50%",
+      /* RIGHT */
 
-              background:
-                "rgba(239,68,68,0.18)",
+      .badge{
+        display:inline-block;
+        padding:12px 24px;
+        border-radius:40px;
+        background:#ff4d4d20;
+        color:#ff4d4d;
+        font-weight:700;
+        margin-bottom:25px;
+      }
 
-              filter: "blur(70px)",
-            }}
-          />
+      .hero-title{
+        font-size:72px;
+        margin-bottom:15px;
+      }
 
-          <img
-            src={developerImg}
+      .hero-title span{
+        color:#ff4d4d;
+      }
 
-            alt="Ayush Kumar"
+      .hero-sub{
+        color:#cbd5e1;
+        font-size:22px;
+        margin-bottom:25px;
+      }
 
-            style={{
-              width:
-                window.innerWidth < 768
-                  ? "100%"
-                  : "420px",
+      .hero-text{
+        color:#cbd5e1;
+        max-width:850px;
+        line-height:1.9;
+        margin-bottom:40px;
+      }
 
-              height:
-                window.innerWidth < 768
-                  ? "500px"
-                  : "620px",
+      .stats{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:30px;
+        margin-bottom:50px;
+      }
 
-              objectFit: "cover",
+      .stat{
+        display:flex;
+        align-items:center;
+        gap:15px;
+      }
 
-              borderRadius: "35px",
+      .stat-icon{
+        width:65px;
+        height:65px;
+        border-radius:18px;
+        background:rgba(255,255,255,.05);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:30px;
+      }
 
-              border:
-                "4px solid rgba(255,255,255,0.08)",
+      .stat h3{
+        color:#ff4d4d;
+        font-size:40px;
+      }
 
-              boxShadow:
-                "0 25px 60px rgba(0,0,0,0.55)",
+      .service-heading{
+        font-size:34px;
+        margin-bottom:25px;
+      }
 
-              position: "relative",
+      .service-grid{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:20px;
+      }
 
-              zIndex: 2,
-            }}
-          />
+      .service-card{
+        background:rgba(255,255,255,.04);
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:20px;
+        padding:25px;
+        transition:.3s;
+      }
 
-        </div>
+      .service-card:hover{
+        transform:translateY(-8px);
+        border-color:#ff4d4d;
+      }
 
-        {/* RIGHT CONTENT */}
+      .service-icon{
+        width:55px;
+        height:55px;
+        border-radius:50%;
+        background:#ff4d4d20;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:24px;
+        margin-bottom:15px;
+      }
 
-        <div>
+      .service-card h4{
+        margin-bottom:10px;
+      }
 
-          <div
-            style={{
-              display: "inline-block",
+      .service-card p{
+        color:#cbd5e1;
+        line-height:1.6;
+      }
 
-              padding: "10px 24px",
+      .buttons{
+        display:flex;
+        gap:20px;
+        margin-top:40px;
+      }
 
-              borderRadius: "50px",
+      .contact-btn,
+      .hire-btn{
+        padding:18px 40px;
+        border-radius:16px;
+        font-size:18px;
+        cursor:pointer;
+        font-weight:700;
+      }
 
-              background:
-                "rgba(239,68,68,0.15)",
+      .contact-btn{
+        background:#ff4d4d;
+        border:none;
+        color:white;
+      }
 
-              color: "#ef4444",
+      .hire-btn{
+        background:transparent;
+        border:1px solid rgba(255,255,255,.2);
+        color:white;
+      }
 
-              fontWeight: "600",
+      @media(max-width:1200px){
+        .service-grid{
+          grid-template-columns:repeat(2,1fr);
+        }
+      }
 
-              marginBottom: "25px",
+      @media(max-width:992px){
+        .developer-container{
+          grid-template-columns:1fr;
+        }
 
-              letterSpacing: "1px",
-            }}
-          >
-            WEBSITE DEVELOPER
-          </div>
+        .hero-title{
+          font-size:50px;
+        }
 
-          <h1
-            style={{
-              fontSize:
-                window.innerWidth < 768
-                  ? "48px"
-                  : "72px",
+        .stats{
+          grid-template-columns:1fr;
+        }
+      }
 
-              lineHeight: "1.1",
+      @media(max-width:600px){
 
-              marginBottom: "20px",
+        .hero-title{
+          font-size:38px;
+        }
 
-              fontWeight: "bold",
-            }}
-          >
-            Ayush
-            <span
-              style={{
-                color: "#ef4444",
-              }}
-            >
-              {" "}Kumar
+        .service-grid{
+          grid-template-columns:1fr;
+        }
+
+        .buttons{
+          flex-direction:column;
+        }
+
+        .developer-card h2{
+          font-size:38px;
+        }
+
+        .developer-image{
+          width:180px;
+          height:180px;
+        }
+      }
+
+      `}</style>
+
+      <section className="developer-section">
+        <div className="developer-container">
+
+          {/* LEFT CARD */}
+
+          <div className="developer-card">
+
+            <div className="image-wrapper">
+              <img
+                src={developerImg}
+                alt="Ayush Kumar"
+                className="developer-image"
+              />
+            </div>
+
+            <h2>
+              Ayush <span>Kumar</span>
+            </h2>
+
+            <span className="role">
+              Website Developer
             </span>
-          </h1>
 
-          <h3
-            style={{
-              color: "#cbd5e1",
+            <p className="about-card">
+              I build modern, responsive and high-performance
+              websites & applications.
+            </p>
 
-              fontSize: "28px",
-
-              marginBottom: "25px",
-
-              fontWeight: "500",
-            }}
-          >
-            B.Tech Computer Science Engineer
-          </h3>
-
-          <p
-            style={{
-              color: "#cbd5e1",
-
-              fontSize: "18px",
-
-              lineHeight: "1.9",
-
-              marginBottom: "35px",
-            }}
-          >
-            Professional Website & App Developer
-            from Sanhauli, Khagaria Bihar.
-            I build modern, responsive and
-            high-performance websites for
-            hotels, restaurants, e-commerce,
-            portfolios, businesses and many
-            more industries.
-          </p>
-
-          {/* INFO */}
-
-          <div
-            style={{
-              display: "flex",
-
-              flexDirection: "column",
-
-              gap: "18px",
-
-              marginBottom: "35px",
-            }}
-          >
-
-            <div style={infoStyle}>
-              <Phone size={20} color="#ef4444" />
-              <span>+91 7543898254</span>
+            <div className="personal-title">
+              Personal Details
             </div>
 
-            <div style={infoStyle}>
-              <Mail size={20} color="#ef4444" />
-              <span>ayush247874@gmail.com</span>
+            <div className="contact-item">
+              📞 +91 7543898254
             </div>
 
-            <div style={infoStyle}>
-              <MapPin size={20} color="#ef4444" />
-              <span>
-                Sanhauli, Khagaria, Bihar
-              </span>
+            <div className="contact-item">
+              📧 ayush247874@gmail.com
+            </div>
+
+            <div className="contact-item">
+              📍 Sanhauli, Khagaria, Bihar
+            </div>
+
+            <div className="social-icons">
+              <a href="#">
+                <img src={instagramIcon} alt="" />
+              </a>
+
+              <a href="#">
+                <img src={facebookIcon} alt="" />
+              </a>
+
+              <a href="#">
+                <img src={youtubeIcon} alt="" />
+              </a>
             </div>
 
           </div>
 
-          {/* SERVICES */}
+          {/* RIGHT */}
 
-          <div
-            style={{
-              marginBottom: "40px",
-            }}
-          >
+          <div>
 
-            <h2
-              style={{
-                marginBottom: "20px",
+            <div className="badge">
+              WEBSITE DEVELOPER
+            </div>
 
-                fontSize: "32px",
-              }}
-            >
+            <h1 className="hero-title">
+              Hi, I'm <span>Ayush Kumar</span>
+            </h1>
+
+            <h3 className="hero-sub">
+              B.Tech Computer Science Engineer
+            </h3>
+
+            <p className="hero-text">
+              Professional Website & App Developer from
+              Sanhauli, Khagaria Bihar. I build modern,
+              responsive and high-performance websites
+              for hotels, restaurants, e-commerce,
+              portfolios and businesses.
+            </p>
+
+            <div className="stats">
+
+              <div className="stat">
+                <div className="stat-icon">🚀</div>
+                <div>
+                  <h3>10+</h3>
+                  <p>Projects</p>
+                </div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-icon">💻</div>
+                <div>
+                  <h3>2+</h3>
+                  <p>Years Experience</p>
+                </div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-icon">👥</div>
+                <div>
+                  <h3>100%</h3>
+                  <p>Client Satisfaction</p>
+                </div>
+              </div>
+
+            </div>
+
+            <h2 className="service-heading">
               My Services
             </h2>
 
-            <div
-              style={{
-                display: "grid",
-
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(220px,1fr))",
-
-                gap: "18px",
-              }}
-            >
-
+            <div className="service-grid">
               {services.map((item, index) => (
-
                 <div
                   key={index}
-
-                  style={{
-                    background:
-                      "rgba(255,255,255,0.05)",
-
-                    border:
-                      "1px solid rgba(255,255,255,0.08)",
-
-                    padding: "18px",
-
-                    borderRadius: "18px",
-
-                    display: "flex",
-
-                    alignItems: "center",
-
-                    gap: "12px",
-
-                    color: "#fff",
-
-                    fontWeight: "600",
-                  }}
+                  className="service-card"
                 >
+                  <div className="service-icon">
+                    {item.icon}
+                  </div>
 
-                  <Code
-                    size={20}
-                    color="#ef4444"
-                  />
+                  <h4>{item.title}</h4>
 
-                  {item}
-
+                  <p>{item.desc}</p>
                 </div>
-
               ))}
+            </div>
+
+            <div className="buttons">
+
+              <a href="tel:+917543898254">
+                <button className="contact-btn">
+                  Contact Me
+                </button>
+              </a>
+
+              <a href="mailto:ayush247874@gmail.com">
+                <button className="hire-btn">
+                  Hire Me
+                </button>
+              </a>
 
             </div>
 
           </div>
 
-          {/* SOCIAL MEDIA */}
-
-          <div
-            style={{
-              display: "flex",
-
-              gap: "18px",
-
-              marginBottom: "40px",
-            }}
-          >
-
-            {socialLinks.map((item, index) => (
-
-              <a
-                key={index}
-
-                href={item.link}
-
-                target="_blank"
-
-                rel="noreferrer"
-
-                style={{
-                  width: "60px",
-
-                  height: "60px",
-
-                  borderRadius: "18px",
-
-                  background:
-                    "rgba(255,255,255,0.06)",
-
-                  display: "flex",
-
-                  alignItems: "center",
-
-                  justifyContent: "center",
-
-                  color: item.color,
-
-                  border:
-                    "1px solid rgba(255,255,255,0.08)",
-
-                  transition: "0.4s",
-
-                  textDecoration: "none",
-                }}
-              >
-                {item.icon}
-              </a>
-
-            ))}
-
-          </div>
-
-          {/* CONTACT BUTTONS */}
-
-          <div
-            style={{
-              display: "flex",
-
-              flexWrap: "wrap",
-
-              gap: "20px",
-            }}
-          >
-
-            <a
-              href="tel:+917543898254"
-
-              style={{
-                textDecoration: "none",
-              }}
-            >
-
-              <button
-                style={{
-                  background:
-                    "linear-gradient(90deg,#ef4444,#dc2626)",
-
-                  color: "#fff",
-
-                  border: "none",
-
-                  padding: "18px 35px",
-
-                  borderRadius: "16px",
-
-                  fontSize: "18px",
-
-                  fontWeight: "bold",
-
-                  cursor: "pointer",
-
-                  display: "flex",
-
-                  alignItems: "center",
-
-                  gap: "10px",
-
-                  boxShadow:
-                    "0 15px 35px rgba(239,68,68,0.35)",
-                }}
-              >
-
-                <Phone size={20} />
-
-                Contact Me
-
-              </button>
-
-            </a>
-
-            <a
-              href="mailto:ayush247874@gmail.com"
-
-              style={{
-                textDecoration: "none",
-              }}
-            >
-
-              <button
-                style={{
-                  background:
-                    "rgba(255,255,255,0.08)",
-
-                  color: "#fff",
-
-                  border:
-                    "1px solid rgba(255,255,255,0.08)",
-
-                  padding: "18px 35px",
-
-                  borderRadius: "16px",
-
-                  fontSize: "18px",
-
-                  fontWeight: "bold",
-
-                  cursor: "pointer",
-
-                  display: "flex",
-
-                  alignItems: "center",
-
-                  gap: "10px",
-                }}
-              >
-
-                <Mail size={20} />
-
-                Hire Me
-
-              </button>
-
-            </a>
-
-          </div>
-
         </div>
-
-      </div>
-
-    </section>
-
+      </section>
+    </>
   );
-
 }
-
-/* INFO STYLE */
-
-const infoStyle = {
-
-  display: "flex",
-
-  alignItems: "center",
-
-  gap: "14px",
-
-  fontSize: "18px",
-
-  color: "#e2e8f0",
-};
