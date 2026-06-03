@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 
 export default function TrackOrderPage() {
 
+   const API_URL = import.meta.env.VITE_API_URL;
+
   const [orderId, setOrderId] =
     useState("");
 
@@ -31,7 +33,7 @@ export default function TrackOrderPage() {
       setOrder(null);
 
       const res = await axios.get(
-        `http://localhost:5000/api/orders/track/${orderId}`
+        `${API_URL}/api/orders/track/${orderId}`
       );
 
       setOrder(res.data.order);

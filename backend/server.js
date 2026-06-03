@@ -715,7 +715,7 @@ app.get(
 
           <div class="logo">
             <img
-              src="http://localhost:5000/uploads/Logo_3.png"
+              src="https://devkalaprint.onrender.com/uploads/Logo_3.png"
               alt="Logo"
               class="logo" 
             />

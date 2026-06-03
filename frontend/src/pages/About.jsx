@@ -6,7 +6,12 @@ import { useState,useEffect } from "react";
 
 
 
+
+
+
 export default function About() {
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
       const [totalUsers, setTotalUsers] =
     useState(0);
@@ -15,7 +20,7 @@ export default function About() {
 
     axios
       .get(
-        "http://localhost:5000/api/admin/total-users"
+        `${API_URL}/api/admin/total-users`
       )
       .then((res) => {
 

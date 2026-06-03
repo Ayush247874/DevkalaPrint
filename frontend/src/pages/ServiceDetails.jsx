@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function ServiceDetails() {
 
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const user =
   JSON.parse(
@@ -165,7 +166,7 @@ const validateForm = () => {
       );
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/payment/create-order",
+      `${API_URL}/api/payment/create-order`,
       {
         amount,
       }
@@ -370,7 +371,7 @@ const validateForm = () => {
     const response =
       await axios.post(
 
-        "http://localhost:5000/api/orders",
+        `${API_URL}/api/orders`,
 
         formData,
       );
@@ -424,7 +425,7 @@ const validateForm = () => {
 useEffect(() => {
 
   axios
-    .get("http://localhost:5000/api/orders")
+    .get(`${API_URL}/api/orders`)
     .then((res) => {
 
       console.log(res.data);

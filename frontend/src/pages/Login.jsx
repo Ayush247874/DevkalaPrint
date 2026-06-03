@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login() { 
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ const handleLogin = async () => {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/login",
+      `${API_URL}/api/login`,
       {
         method: "POST",
 

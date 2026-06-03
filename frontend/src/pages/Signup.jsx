@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
 
+   const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
 
   const [name, setName] =
@@ -24,7 +26,7 @@ export default function Signup() {
 
       const response =
         await axios.post(
-          "http://localhost:5000/api/signup",
+          `${API_URL}/api/signup`,
           {
             name,
             email,

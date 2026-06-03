@@ -4,6 +4,8 @@ import axios from "axios";
 
 export default function Admin() {
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const isAdmin =
     localStorage.getItem("isAdmin");
 
@@ -26,7 +28,7 @@ export default function Admin() {
 
     axios
       .get(
-        "http://localhost:5000/api/admin/total-orders"
+        `${API_URL}/api/admin/total-orders`
       )
       .then((res) => {
 
@@ -38,7 +40,7 @@ export default function Admin() {
 
     axios
       .get(
-        "http://localhost:5000/api/admin/total-users"
+        `${API_URL}/api/admin/total-users`
       )
       .then((res) => {
 
@@ -55,7 +57,7 @@ export default function Admin() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/orders"
+        "${API_URL}/api/orders"
       );
 
       setOrders(
@@ -75,7 +77,7 @@ export default function Admin() {
     try {
 
       await axios.put(
-        `http://localhost:5000/api/orders/${id}`,
+        `${API_URL}/api/orders/${id}`,
         {
           status: "Delivered",
         }
@@ -96,7 +98,7 @@ export default function Admin() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/orders/${id}`
+        `${API_URL}/api/orders/${id}`
       );
 
       setOrders(
@@ -411,7 +413,7 @@ export default function Admin() {
                   </button>
 
                   <a
-                    href={`http://localhost:5000/api/invoice/${item._id}`}
+                    href={`${API_URL}/api/invoice/${item._id}`}
                     target="_blank"
                     rel="noreferrer"
                   >
