@@ -109,7 +109,7 @@ app.post("/api/payment/create-order", async (req, res) => {
     const { amount } = req.body;
 
     const options = {
-      amount: amount * 100,
+      amount: Math.round(amount * 100),
       currency: "INR",
       receipt: "receipt_order_" + Date.now(),
     };
@@ -385,8 +385,8 @@ app.post(
 
         invoiceNumber,
         paymentStatus: "Paid",
-        price: 99,
-        gst: 2,
+        price: req.body.price ? Number(req.body.price) : 99,
+        gst: req.body.gst ? Number(req.body.gst) : 12,
 
       });
 

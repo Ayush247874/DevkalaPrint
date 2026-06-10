@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import services from "../data/services";
 import Navbar from "../components/Navbar";
+import loadRazorpay from "../utils/loadRazorpay";
 
 import {
   ToastContainer,
@@ -69,6 +70,10 @@ const [mobile, setMobile] =
 const [errors, setErrors] =
   useState({});
 
+// PAYMENT IN-PROGRESS GUARD (prevents double clicks)
+const [isPaying, setIsPaying] =
+  useState(false);
+
   const service = services.find(
     (item) => item.slug === slug
   );
@@ -77,10 +82,19 @@ const [errors, setErrors] =
     return <h1>Service Not Found</h1>;
   }
 
+  // BASE PRICE + GST (DEFAULT 12%)
+  const basePrice = parseInt(
+    service.price.replace(/[^0-9]/g, "")
+  );
+  const gstPercent = service.gst ?? 12;
+  const totalPrice = (
+    basePrice + (basePrice * gstPercent) / 100
+  ).toFixed(2);
 
 
 
-  //VALIDATION FUNCTION 
+
+  //VALIDATION FUNCTION
 const validateForm = () => {
 
   let newErrors = {};
@@ -145,6 +159,10 @@ const validateForm = () => {
   //Create Payment Function
   const handlePayment = async () => {
 
+  if (isPaying) {
+    return;
+  }
+
   // VALIDATE FIRST
   const isValid =
     validateForm();
@@ -158,12 +176,22 @@ const validateForm = () => {
     return;
   }
 
+  setIsPaying(true);
+
   try {
 
-    const amount =
-      parseInt(
-        service.price.replace(/[^0-9]/g, "")
+    const sdkReady = await loadRazorpay();
+
+    if (!sdkReady || !window.Razorpay) {
+      setIsPaying(false);
+      toast.error(
+        "Payment SDK Failed To Load"
       );
+      return;
+    }
+
+    const amount =
+      basePrice + (basePrice * gstPercent) / 100;
 
     const { data } = await axios.post(
       `${API_URL}/api/payment/create-order`,
@@ -174,7 +202,7 @@ const validateForm = () => {
 
     const options = {
 
-      key: "rzp_test_SsQ8XQZInTdAH5",
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
 
       amount: data.amount,
 
@@ -186,15 +214,54 @@ const validateForm = () => {
 
       order_id: data.id,
 
-      handler: async function () {
+      handler: async function (response) {
 
         toast.success(
           "Payment Successful"
         );
 
-        // SAVE ORDER
-        handleSubmit();
+        try {
 
+          const savedOrder = await handleSubmit();
+
+          navigate(
+            "/order-success",
+            {
+              state: {
+                order: savedOrder,
+                paymentId:
+                  response?.razorpay_payment_id,
+              },
+            }
+          );
+
+        } catch (err) {
+
+          console.log(err);
+
+          navigate(
+            "/order-success",
+            {
+              state: {
+                order: null,
+                paymentId:
+                  response?.razorpay_payment_id,
+              },
+            }
+          );
+
+        } finally {
+
+          setIsPaying(false);
+
+        }
+
+      },
+
+      modal: {
+        ondismiss: function () {
+          setIsPaying(false);
+        },
       },
 
       theme: {
@@ -206,11 +273,20 @@ const validateForm = () => {
     const razor =
       new window.Razorpay(options);
 
+    razor.on("payment.failed", function () {
+      setIsPaying(false);
+      toast.error(
+        "Payment Failed"
+      );
+    });
+
     razor.open();
 
   } catch (error) {
 
     console.log(error);
+
+    setIsPaying(false);
 
     toast.error(
       "Payment Failed"
@@ -312,6 +388,18 @@ const validateForm = () => {
     );
 
     formData.append(
+      "price",
+      parseInt(
+        service.price.replace(/[^0-9]/g, "")
+      )
+    );
+
+    formData.append(
+      "gst",
+      service.gst ?? 12
+    );
+
+    formData.append(
       "fullName",
       fullName
     );
@@ -378,35 +466,7 @@ const validateForm = () => {
 
     console.log(response.data);
 
-    navigate(
-    "/order-success",
-    {
-      state: {
-        order:
-          response.data.data,
-      },
-    }
-  );
-    
-
-    // CLEAR FORM
-    setFullName("");
-    setAddress("");
-    setCity("");
-    setStateName("");
-    setPincode("");
-    setMobile("");
-
-    setFrontImage(null);
-    setBackImage(null);
-
-    setFrontPreview("");
-    setBackPreview("");
-
-    setFrontFileName("");
-    setBackFileName("");
-
-    setErrors({});
+    return response.data.data;
 
   } catch (error) {
 
@@ -414,9 +474,7 @@ const validateForm = () => {
       error.response?.data || error
     );
 
-    toast.error(
-      "Server Error! Try Again"
-    );
+    throw error;
 
   }
 
@@ -502,7 +560,7 @@ useEffect(() => {
             fontWeight: "bold",
           }}
         >
-          Print + GST = {service.price}
+          Print + GST = ₹{totalPrice}
         </h2>
 
         {/* UPLOAD SECTION */}
@@ -1022,6 +1080,7 @@ useEffect(() => {
         {/* BUTTON */}
       <button
         onClick={handlePayment}
+        disabled={isPaying}
         style={{
           marginTop: "30px",
           background: "#D40000",
@@ -1029,13 +1088,14 @@ useEffect(() => {
           border: "none",
           padding: "15px 30px",
           borderRadius: "8px",
-          cursor: "pointer",
+          cursor: isPaying ? "not-allowed" : "pointer",
+          opacity: isPaying ? 0.7 : 1,
           width: "100%",
           fontSize: "17px",
           fontWeight: "bold",
         }}
       >
-        Proceed To Checkout
+        {isPaying ? "Processing..." : "Proceed To Checkout"}
       </button>
       </div>
     </section> 
